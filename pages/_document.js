@@ -5,8 +5,9 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* Google Tag Manager (via Stape custom loader) */}
+          {/* Google Tag Manager (via Stape custom loader, async) */}
           <script
+            async
             dangerouslySetInnerHTML={{
               __html: `
                 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -30,6 +31,16 @@ class MyDocument extends Document {
           {/* End Google Tag Manager (noscript) */}
           <Main />
           <NextScript />
+          {/* Defer Plasmic JavaScript */}
+          <script
+            defer
+            src="/_next/static/chunks/plasmic.js"
+            dangerouslySetInnerHTML={{
+              __html: `
+                // Optional: Add custom logic to lazy-load Plasmic components
+              `,
+            }}
+          />
         </body>
       </Html>
     );
