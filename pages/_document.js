@@ -5,6 +5,33 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          {/* Inline Critical CSS (including font fallbacks) */}
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `
+                /* Critical CSS for above-the-fold content */
+                body { font-family: Arial, sans-serif; margin: 0; }
+                .plasmic-hero { padding: 20px; background: #fff; }
+                /* Fallback font styles (match Google Fonts if known) */
+                .plasmic-text { font-family: Arial, sans-serif; font-size: 16px; }
+                /* Add more critical styles from Plasmic-generated CSS */
+              `,
+            }}
+          />
+          {/* Preload and Defer Google Fonts CSS */}
+          <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=...&display=swap"
+            as="style"
+            onLoad="this.rel='stylesheet'"
+          />
+          {/* Fallback for older browsers */}
+          <noscript>
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=...&display=swap"
+            />
+          </noscript>
           {/* Google Tag Manager (via Stape custom loader, async) */}
           <script
             async
@@ -31,16 +58,6 @@ class MyDocument extends Document {
           {/* End Google Tag Manager (noscript) */}
           <Main />
           <NextScript />
-          {/* Defer Plasmic JavaScript */}
-          <script
-            defer
-            src="/_next/static/chunks/plasmic.js"
-            dangerouslySetInnerHTML={{
-              __html: `
-                // Optional: Add custom logic to lazy-load Plasmic components
-              `,
-            }}
-          />
         </body>
       </Html>
     );
