@@ -5,23 +5,29 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* Inline Critical CSS (including font fallbacks) */}
+          {/* Inline Critical CSS with Font Fallbacks */}
           <style
             dangerouslySetInnerHTML={{
               __html: `
-                /* Critical CSS for above-the-fold content */
-                body { font-family: Arial, sans-serif; margin: 0; }
-                .plasmic-hero { padding: 20px; background: #fff; }
-                /* Fallback font styles (match Google Fonts if known) */
-                .plasmic-text { font-family: Arial, sans-serif; font-size: 16px; }
-                /* Add more critical styles from Plasmic-generated CSS */
+                body { font-family: Arial, sans-serif; margin: 0; line-height: 1.5; }
+                .plasmic-hero, .plasmic-root-wrapper { padding: 20px; background: #fff; max-width: 100%; }
+                .plasmic-text, .plasmic-default-styles, h2 { 
+                  font-family: 'Roboto', Arial, sans-serif; 
+                  font-weight: 400; 
+                  font-size: 16px; 
+                  color: rgb(255, 255, 255); /* Match LCP text color */
+                }
+                @media (min-width: 600px) {
+                  .plasmic-text, .plasmic-default-styles, h2 { font-size: 18px; }
+                }
+                h2 { font-size: 2rem; } /* Match LCP <h2> styling */
               `,
             }}
           />
           {/* Preload and Defer Google Fonts CSS */}
           <link
             rel="preload"
-            href="https://fonts.googleapis.com/css2?family=...&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
             as="style"
             onLoad="this.rel='stylesheet'"
           />
@@ -29,7 +35,7 @@ class MyDocument extends Document {
           <noscript>
             <link
               rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+              href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
             />
           </noscript>
           {/* Google Tag Manager (via Stape custom loader, async) */}
