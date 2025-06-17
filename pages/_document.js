@@ -24,20 +24,22 @@ class MyDocument extends Document {
               `,
             }}
           />
-          {/* Preload and Defer Google Fonts CSS */}
-          <link
-            rel="preload"
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-            as="style"
-            onLoad="this.rel='stylesheet'"
-          />
-          {/* Fallback for older browsers */}
-          <noscript>
-            <link
-              rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-            />
-          </noscript>
+          {/* Preload and Defer Google Fonts CSS with improved deferral */}
+<link
+  rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+  as="style"
+  onLoad="this.rel='stylesheet'; this.onload=null;" /* Ensure no repeated loading */
+  media="print" /* Prevent initial blocking */
+  onChange="if(media!='all')media='all'" /* Switch to all once loaded */
+/>
+<noscript>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    media="all"
+  />
+</noscript>
           {/* Google Tag Manager (via Stape custom loader, async) */}
           <script
             async
