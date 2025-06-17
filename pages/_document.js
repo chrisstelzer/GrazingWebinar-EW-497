@@ -5,18 +5,18 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* Inline Critical CSS (including font fallbacks) */}
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `
-                /* Critical CSS for above-the-fold content */
-                body { font-family: Arial, sans-serif; margin: 0; }
-                .plasmic-hero { padding: 20px; background: #fff; }
-                /* Fallback font styles (match Google Fonts if known) */
-                .plasmic-text { font-family: Arial, sans-serif; font-size: 16px; }
-                /* Add more critical styles from Plasmic-generated CSS */
-              `,
-            }}
+          /* Critical CSS for above-the-fold content */
+body { font-family: Arial, sans-serif; margin: 0; }
+.plasmic-hero { padding: 20px; background: #fff; }
+/* Critical font styles (example for Roboto) */
+.plasmic-text {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+@media (min-width: 600px) {
+  .plasmic-text { font-size: 18px; }
+}
           />
           {/* Preload and Defer Google Fonts CSS */}
           <link
