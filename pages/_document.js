@@ -7,36 +7,38 @@ class MyDocument extends Document {
         <Head>
           {/* Inline Critical CSS with Font Fallbacks */}
           <style
-  dangerouslySetInnerHTML={{
-    __html: `
-      @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        src: url('/fonts/Roboto-Regular.ttf') format('truetype');
-      }
-      @font-face {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 700;
-        src: url('/fonts/Roboto-Bold.ttf') format('truetype');
-      }
-      body { font-family: Arial, sans-serif; margin: 0; line-height: 1.5; }
-      .plasmic-hero, .plasmic-root-wrapper { padding: 20px; background: #fff; max-width: 100%; }
-      .plasmic-text, .plasmic-default-styles, h2 { 
-        font-family: 'Roboto', Arial, sans-serif; 
-        font-weight: 400; 
-        font-size: 16px; 
-        color: rgb(255, 255, 255); 
-      }
-      @media (min-width: 600px) {
-        .plasmic-text, .plasmic-default-styles, h2 { font-size: 18px; }
-      }
-      h2 { font-size: 2rem; } /* Match LCP <h2> styling */
-    `,
-  }}
-/>
-{/* Remove Google Fonts link and noscript */}
+            dangerouslySetInnerHTML={{
+              __html: `
+                body { font-family: Arial, sans-serif; margin: 0; line-height: 1.5; }
+                .plasmic-hero, .plasmic-root-wrapper { padding: 20px; background: #fff; max-width: 100%; }
+                .plasmic-text, .plasmic-default-styles, h2 { 
+                  font-family: 'Roboto', Arial, sans-serif; 
+                  font-weight: 400; 
+                  font-size: 16px; 
+                  color: rgb(255, 255, 255); /* Match LCP text color */
+                }
+                @media (min-width: 600px) {
+                  .plasmic-text, .plasmic-default-styles, h2 { font-size: 18px; }
+                }
+                h2 { font-size: 2rem; } /* Match LCP <h2> styling */
+              `,
+            }}
+          />
+          {/* Preload and Defer Google Fonts CSS */}
+          <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+            as="style"
+            onLoad="this.rel='stylesheet'"
+          />
+          {/* Fallback for older browsers */}
+          <noscript>
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+            />
+          </noscript>
+          {/* Google Tag Manager (via Stape custom loader, async) */}
           <script
             async
             dangerouslySetInnerHTML={{
