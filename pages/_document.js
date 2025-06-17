@@ -5,7 +5,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          /* Critical CSS for above-the-fold content */
+          <style> /* Critical CSS for above-the-fold content */
 body { font-family: Arial, sans-serif; margin: 0; }
 .plasmic-hero { padding: 20px; background: #fff; }
 /* Critical font styles (example for Roboto) */
