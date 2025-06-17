@@ -6,23 +6,23 @@ class MyDocument extends Document {
       <Html>
         <Head>
           {/* Inline Critical CSS with Font Fallbacks */}
-          <style
+        <style
   dangerouslySetInnerHTML={{
     __html: `
       @font-face {
-        font-family: 'Roboto';
+        font-family: 'Custom Roboto';
         font-style: normal;
         font-weight: 400; /* Regular */
         src: url('/fonts/roboto-v48-latin-regular.woff2') format('woff2'); /* Adjust file name if needed */
       }
       @font-face {
-        font-family: 'Roboto';
+        font-family: 'Custom Roboto';
         font-style: normal;
         font-weight: 600; /* Semi-Bold */
         src: url('/fonts/roboto-v48-latin-600.woff2') format('woff2');
       }
       @font-face {
-        font-family: 'Roboto';
+        font-family: 'Custom Roboto';
         font-style: normal;
         font-weight: 700; /* Bold */
         src: url('/fonts/roboto-v48-latin-700.woff2') format('woff2');
@@ -30,7 +30,7 @@ class MyDocument extends Document {
       body { font-family: Arial, sans-serif; margin: 0; line-height: 1.5; }
       .plasmic-hero, .plasmic-root-wrapper { padding: 20px; background: #fff; max-width: 100%; }
       .plasmic-text, .plasmic-default-styles, h2 { 
-        font-family: 'Roboto', Arial, sans-serif; 
+        font-family: 'Custom Roboto', Arial, sans-serif; 
         font-weight: 400; 
         font-size: 16px; 
         color: rgb(255, 255, 255); 
@@ -42,7 +42,7 @@ class MyDocument extends Document {
     `,
   }}
 />
-{/* Remove Google Fonts links since self-hosting is complete */}
+{/* Remove Google Fonts links */}
           {/* Google Tag Manager (via Stape custom loader, async) */}
           <script
             async
