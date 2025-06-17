@@ -5,31 +5,37 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* Inline Critical CSS with Font Fallbacks */}
+          {/* Enhanced fallback styles to prioritize Arial and hide until Roboto loads */}
           <style
             dangerouslySetInnerHTML={{
               __html: `
                 body { font-family: Arial, sans-serif; margin: 0; line-height: 1.5; }
                 .plasmic-hero, .plasmic-root-wrapper { padding: 20px; background: #fff; max-width: 100%; }
                 .plasmic-text, .plasmic-default-styles, h2 { 
-                  font-family: 'Roboto', Arial, sans-serif; 
+                  font-family: Arial, sans-serif; /* Prioritize fallback */
                   font-weight: 400; 
                   font-size: 16px; 
-                  color: rgb(255, 255, 255); /* Match LCP text color */
+                  color: rgb(255, 255, 255); 
+                  /* Hide text until Roboto loads to avoid flicker */
+                  visibility: hidden; 
                 }
                 @media (min-width: 600px) {
                   .plasmic-text, .plasmic-default-styles, h2 { font-size: 18px; }
                 }
                 h2 { font-size: 2rem; } /* Match LCP <h2> styling */
+                /* Show text once Roboto is ready */
+                @supports (font: -apple-system) {
+                  h2 { visibility: hidden; }
+                }
               `,
             }}
           />
-          {/* Preload and Defer Google Fonts CSS */}
+          {/* Preload and Defer Google Fonts CSS with visibility toggle */}
           <link
             rel="preload"
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
             as="style"
-            onLoad="this.rel='stylesheet'"
+            onLoad="this.rel='stylesheet'; document.querySelectorAll('h2').forEach(el => el.style.visibility = 'visible');"
           />
           {/* Fallback for older browsers */}
           <noscript>
